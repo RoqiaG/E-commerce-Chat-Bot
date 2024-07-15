@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #chatHistory {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 400px;
+        }
+        .chatMessage {
+            margin-bottom: 10px;
+        }
+        .chatMessage strong {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chatbot Test</h1>
+    
+    <form id="chatForm" action="{% url 'predict' %}" method="post">
+        {% csrf_token %}
+        <label for="userInput">Enter your message:</label><br>
+        <input type="text" id="userInput" name="userInput" required>
+        <button type="submit">Send</button>
+    </form>
+
+    {% if user_input %}
+        <div id="chatHistory">
+            <div class="chatMessage">
+                <strong>You:</strong> {{ user_input }}
+            </div>
+            <div class="chatMessage">
+                <strong>Chatbot:</strong> {{ prediction }}
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>
